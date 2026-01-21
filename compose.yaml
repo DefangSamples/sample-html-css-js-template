@@ -1,0 +1,21 @@
+name: html-css-js
+services:
+  app:
+    restart: unless-stopped
+    build:
+      context: ./app
+      dockerfile: Dockerfile
+    ports:
+    - target: 8080
+      published: 8080
+      mode: ingress
+    deploy:
+      resources:
+        reservations:
+          memory: 256M
+    healthcheck:
+      test:
+      - CMD
+      - curl
+      - -f
+      - http://localhost:8080/
